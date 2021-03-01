@@ -1,4 +1,5 @@
 
+
 import java.net.Socket;
 
 public class Peer {
@@ -10,7 +11,7 @@ public class Peer {
     private boolean choked;
     private long downloadSpeed;
     private Socket hostSocket;
-}
+
 
 /**
  * @param peerID Special Peer ID assigned to each Peer
@@ -33,30 +34,30 @@ public class Peer {
  /**
   * Constructor
   */
- public Peer() {
+public Peer() {
 
- }
+}
 
- /**
-  * Setting and getting values
-  */
+/**
+* Setting and getting values
+*/
 
-  /**
-   * peerID
-   */
+/**
+* peerID
+*/
 
-  public void setpeerID(int peerID) {
-      this.peerID = peerID;
-  }
+public void setpeerID(int peerID) {
+    this.peerID = peerID;
+}
 
-  public void getpeerID() {
-      return peerID;
-  }
+public int getpeerID() {
+    return peerID;
+}
 
 
-  /**
-   * hostName
-   */
+/**
+* hostName
+*/
 
 public void sethostName(String hostName) {
     this.hostName = hostName;
@@ -68,82 +69,84 @@ public String gethostName() {
 
 
 /**
- * portNumber
- */
+* portNumber
+*/
 
- public void setportNumber(int portNumber) {
-     this.portNumber = portNumber;
- }
+public void setportNumber(int portNumber) {
+    this.portNumber = portNumber;
+}
 
- public int getportNumber() {
-     return portNumber;
- }
-
-
- /**
-  * isFile
-  */
-
-  public void setisFile(boolean isFile) {
-      this.isFile = isFile;
-  }
-
-  public void setisFile(int isFile) {
-      this.isFile = Integer.parseInt(isFile)
-  }
-
-  public boolean getisFile() {
-      return isFile;
-  }
+public int getportNumber() {
+    return portNumber;
+}
 
 
-  /**
-   * bitField
-   */
+/**
+* isFile
+*/
 
-   public void setbitField (byte[] bitField) {
-       this.bitField = bitField;
-   }
+public void setisFile(boolean isFile) {
+    this.isFile = isFile;
+}
 
-   public byte[] getbitField () {
-       return bitField;
-   }
+public void setisFile(String isFile) {
+    this.isFile = Integer.parseInt(isFile) == 0 ? false : true ;
+}
 
-
-   /**
-    * Choked
-    */
-
-    public void setchoked (boolean choked) {
-        this.choked = choked;
-    }
-
-    public boolean getchoked () {
-        return choked;
-    }
+public boolean getisFile() {
+    return isFile;
+}
 
 
-    /**
-     * downloadSpeed
-     */
+/**
+* bitField
+*/
 
-     public void setdownloadSpeed (long downloadSpeed) {
-         this.downloadSpeed = downloadSpeed;
-     }
+public void setbitField (byte[] bitField) {
+    this.bitField = bitField;
+}
 
-     public long getdownloadSpeed () {
-         return downloadSpeed;
-     }
+public byte[] getbitField () {
+    return bitField;
+}
 
 
-     /**
-      * hostSocket
-      */
+/**
+* Choked
+*/
 
-      public void sethostSocket (Socket hostSocket) {
-          this.hostSocket = hostSocket
-      }
+public void setchoked (boolean choked) {
+    this.choked = choked;
+}
 
-      public Socket gethostSocket () {
-          return hostSocket;
-      }
+public boolean getchoked () {
+    return choked;
+}
+
+
+/**
+* downloadSpeed
+*/
+
+public void setdownloadSpeed (long downloadSpeed) {
+    this.downloadSpeed = downloadSpeed;
+}
+
+public long getdownloadSpeed () {
+    return downloadSpeed;
+}
+
+
+/**
+* hostSocket
+*/
+
+public void sethostSocket (Socket hostSocket) {
+    this.hostSocket = hostSocket;
+}
+
+public Socket gethostSocket () {
+    return hostSocket;
+}
+
+}
