@@ -2,6 +2,9 @@
 Code to read properties from config file
 */
 
+import java.io.*;
+import java.text.*;
+
 public class CommonConfigRead {
 
   public static final string common_file_name = "common.config";
@@ -11,6 +14,57 @@ public class CommonConfigRead {
   private static string FileName;
   private static int FileSize;
   private static int PieceSize;
+
+  public void read_file() throws FileNotFoundException, IOException, ParseException {
+
+    try {
+      FileReader fr = new FileReader(common_file_name);
+      BufferedReader br = new BufferedReader(fr);
+
+      for (String line; (line = br.readLine()) != NULL;) {
+        String[] single_line = line.split(" ");
+        String key = single_line[0];
+        String value = single_line[1];
+
+        if (key.equals("NumberOfPreferredNeighbors")) {
+          NumberOfPreferredNeighbors = Integer.parseInt(value);
+        }
+
+        else if (key.equals("UnchokingInterval")) {
+          UnchokingInterval = Integer.parseInt(value);
+        }
+
+        else if (key.equals("OptimisticUnchokingInterval")) {
+          OptimisticUnchokingInterval = Integer.parseInt(value);
+        }
+
+        else if (key.equals("FileName")) {
+          FileName = value;
+        }
+
+        else if (key.equals("FileSize")) {
+          FileSize = Integer.parseInt(value);
+        }
+
+        else if (key.equals("PieceSize")) {
+          PieceSize = Integer.parseInt(value);
+        }
+      }
+      br.close();
+    }
+
+    catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
 
 
 
