@@ -7,21 +7,21 @@ import java.text.*;
 
 public class CommonConfigRead {
 
-  public static final string common_file_name = "common.config";
+  public static final String common_file_name = "common.cfg";
   private static int NumberOfPreferredNeighbors;
   private static int  UnchokingInterval;
   private static int  OptimisticUnchokingInterval;
-  private static string FileName;
+  private static String FileName;
   private static int FileSize;
   private static int PieceSize;
 
-  public void read_file() throws FileNotFoundException, IOException, ParseException {
+  public void read_file() throws FileNotFoundException, IOException, NumberFormatException {
 
     try {
       FileReader fr = new FileReader(common_file_name);
       BufferedReader br = new BufferedReader(fr);
 
-      for (String line; (line = br.readLine()) != NULL;) {
+      for (String line; (line = br.readLine()) != null;) {
         String[] single_line = line.split(" ");
         String key = single_line[0];
         String value = single_line[1];
@@ -61,7 +61,7 @@ public class CommonConfigRead {
       e.printStackTrace();
     }
 
-    catch (ParseException e) {
+    catch (NumberFormatException e) {
       e.printStackTrace();
     }
   }
@@ -72,7 +72,7 @@ public class CommonConfigRead {
 	* Returns value of common_file_name
 	* @return
 	*/
-	public static string getCommon_file_name() {
+	public static String getCommon_file_name() {
 		return common_file_name;
 	}
 
@@ -128,7 +128,7 @@ public class CommonConfigRead {
 	* Returns value of FileName
 	* @return
 	*/
-	public static string getFileName() {
+	public static String getFileName() {
 		return FileName;
 	}
 
@@ -136,7 +136,7 @@ public class CommonConfigRead {
 	* Sets new value of FileName
 	* @param
 	*/
-	public static void setFileName(string FileName) {
+	public static void setFileName(String FileName) {
 		CommonConfigRead.FileName = FileName;
 	}
 
@@ -171,4 +171,21 @@ public class CommonConfigRead {
 	public static void setPieceSize(int PieceSize) {
 		CommonConfigRead.PieceSize = PieceSize;
 	}
+
+
+  public static void main(String args[]) throws FileNotFoundException, IOException{
+    CommonConfigRead obj = new CommonConfigRead();
+    try{
+      obj.read_file();
+      System.out.println(obj.getFileName());
+    }
+
+    catch(FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
