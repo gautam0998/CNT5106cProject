@@ -7,7 +7,7 @@ import java.text.*;
 
 public class CommonConfigRead {
 
-  public static final String common_file_name = "common.cfg";
+  public static final String common_file_name = "Common.cfg";
   private static int NumberOfPreferredNeighbors;
   private static int  UnchokingInterval;
   private static int  OptimisticUnchokingInterval;

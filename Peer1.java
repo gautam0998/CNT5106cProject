@@ -3,7 +3,7 @@ import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class Client {
+public class Peer1 {
     
     public static void main(String[] args) throws Exception {
 
@@ -42,16 +42,16 @@ public class Client {
             dOutputStream1.write(handshake);
 
             //set the length of fileSize of inputstream to be read
-            byte[] b = new byte[fileSize];
+            byte[] outputBytes = new byte[fileSize];
 
             //output the data to a new file
-            FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Shubham\\Desktop\\pic.jpg");
+            FileOutputStream fileOutputStream = new FileOutputStream("./file/received/output.jpg");
             
             //read the input into 'b' byte of length 'fileSize'
-            iStream.read(b);
+            iStream.read(outputBytes);
 
             //output into 'b'
-            fileOutputStream.write(b);
+            fileOutputStream.write(outputBytes);
 
         }
 
