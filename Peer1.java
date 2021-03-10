@@ -4,10 +4,10 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class Peer1 {
-    
+
     public static void main(String[] args) throws Exception {
 
-        ByteArrayOutputStream handshakeMessage = new ByteArrayOutputStream();
+        int peerID = 1002; //4 bit PeerID
         
         //socket initialized
         Socket socket = new Socket("localhost", 7777);
@@ -16,42 +16,57 @@ public class Peer1 {
         InputStream iStream = socket.getInputStream();
 
         //dataInput intialized
-        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
 
         //read from the data input and store the file size value in length variable
-        int fileSize = in.readInt();
+        int fileSize = dataInputStream.readInt();
 
         if (fileSize > 0) {
  
             byte[] header = new String("P2PFILESHARINGPROJ").getBytes(); // header
+            
             byte[] zeroBits = new byte[10];
-            Arrays.fill(zeroBits,(byte)0); // 10 byte zero bits
+       
+            
+            Arrays.fill(zeroBits,(byte)0); // 10 byte zero bits Array
+      
+ 
+            byte[] pID = ByteBuffer.allocate(4).putInt(peerID).array(); // peer ID in byte array
 
-            int peerID = 1001; //4 bit PeerID
+            ByteArrayOutputStream handshakeMessageBytes = new ByteArrayOutputStream();
+        
+            handshakeMessageBytes.write(header);
+            handshakeMessageBytes.write(zeroBits);
+            handshakeMessageBytes.write(pID);
 
-            byte[] pID = ByteBuffer.allocate(4).putInt(peerID).array();
+            byte[] handshakeMessage = handshakeMessageBytes.toByteArray();
 
-            handshakeMessage.write(header);
-            handshakeMessage.write(zeroBits);
-            handshakeMessage.write(pID);
+            int asd = ByteBuffer.wrap(Arrays.copyOfRange(handshakeMessage, 28, 32)).getInt();
 
-            byte[] handshake = handshakeMessage.toByteArray();
+            System.out.println(asd);
 
-            //if length is >0, send reponse message for acknowledgment
+            //send handshakeMessage message for connection
             DataOutputStream dOutputStream1 = new DataOutputStream(socket.getOutputStream());
-            dOutputStream1.write(handshake);
+
+            dOutputStream1.write(handshakeMessage);
 
             //set the length of fileSize of inputstream to be read
-            byte[] outputBytes = new byte[fileSize];
+            byte[] outputFileBytes = new byte[fileSize];
 
             //output the data to a new file
             FileOutputStream fileOutputStream = new FileOutputStream("./file/received/output.jpg");
             
-            //read the input into 'b' byte of length 'fileSize'
-            iStream.read(outputBytes);
+            //read the input into 'b' byte of length 'fileSize' 
+            iStream.read(outputFileBytes);
 
             //output into 'b'
-            fileOutputStream.write(outputBytes);
+            fileOutputStream.write(outputFileBytes);
+
+            //close OutputStream
+            fileOutputStream.close();
+
+            //close Socket
+            socket.close();
 
         }
 
