@@ -8,7 +8,6 @@ public class Peer1 {
     public static void main(String[] args) throws Exception {
 
         int peerID = 1002; //4 bit PeerID
-
         
         //socket initialized
         Socket socket = new Socket("localhost", 7777);
