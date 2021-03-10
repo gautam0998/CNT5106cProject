@@ -1,17 +1,22 @@
 import java.io.*;
 import java.net.*;
 
-public class Server {
+public class PeerMain {
     public static void main(String[] args) throws Exception {
         
-        //Create A new server socket for this peer/server with port number 7777
-        ServerSocket serverSocket = new ServerSocket(7777);
 
-        //Connect to the created socket
-        Socket socket= serverSocket.accept();
+        //FileLocation
+        String sentLocation = "./file/sent/input.jpg";        
+        
+         //Create A new server socket for this peer/server with port number 7777
+         ServerSocket serverSocket = new ServerSocket(7777);
+
+         //Connect to the created socket
+         Socket socket= serverSocket.accept();
+
 
         //Provide the file location to be transferred
-        File file = new File("C:\\Users\\Shubham\\Desktop\\bike pic.jpg");
+        File file = new File(sentLocation);
 
         //File size to be shared for efficient transfer
         int fileSize = (int) file.length();
@@ -19,6 +24,7 @@ public class Server {
         //try to send a data output stream to share the file size
         try {
             DataOutputStream dOutputStream = new DataOutputStream(socket.getOutputStream());
+            
             dOutputStream.writeInt(fileSize);
 
             //received message code initialization
@@ -32,7 +38,6 @@ public class Server {
             //received message stored in the variable
             receivedMessage = dataInputStream.read();
 
-            
 
             System.out.println(receivedMessage);
             
@@ -40,7 +45,7 @@ public class Server {
             if(true){
                 
                 //if correct then initiate file transfer and start the input stream of the file
-                FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Shubham\\Desktop\\bike pic.jpg");
+                FileInputStream fileInputStream = new FileInputStream(sentLocation);
         
                 //file size in byte of the file being sent
                 byte []b=new byte[fileSize];
@@ -52,7 +57,7 @@ public class Server {
             }
 
         } catch (Exception e) {
-            //TODO: handle exception
+           System.out.println(e);
         }
        
     }
